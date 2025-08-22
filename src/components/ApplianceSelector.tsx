@@ -13,7 +13,14 @@ import {
   Microwave, 
   Monitor,
   Lightbulb,
-  Zap
+  Zap,
+  Coffee,
+  Wind,
+  Flame,
+  Circle,
+  Gamepad2,
+  Wifi,
+  Bot
 } from 'lucide-react';
 
 const appliancePresets = [
@@ -24,6 +31,22 @@ const appliancePresets = [
   { name: 'Micro-ondas', power: 800, icon: 'Microwave' },
   { name: 'Computador', power: 300, icon: 'Monitor' },
   { name: 'Lâmpadas LED', power: 10, icon: 'Lightbulb' },
+  { name: 'Forno Elétrico', power: 2500, icon: 'Zap' },
+  { name: 'Chaleira Elétrica', power: 2000, icon: 'Coffee' },
+  { name: 'Torradeira', power: 1200, icon: 'Zap' },
+  { name: 'Aspirador', power: 1400, icon: 'Wind' },
+  { name: 'Máquina de Café', power: 1000, icon: 'Coffee' },
+  { name: 'Ventoinha', power: 75, icon: 'Wind' },
+  { name: 'Aquecedor Elétrico', power: 2000, icon: 'Flame' },
+  { name: 'Placa de Indução', power: 3000, icon: 'Circle' },
+  { name: 'Ferro de Engomar', power: 2200, icon: 'Zap' },
+  { name: 'Secador de Cabelo', power: 1800, icon: 'Wind' },
+  { name: 'Consola de Jogos', power: 150, icon: 'Gamepad2' },
+  { name: 'Router Wi-Fi', power: 15, icon: 'Wifi' },
+  { name: 'Monitor PC', power: 120, icon: 'Monitor' },
+  { name: 'Exaustor Cozinha', power: 200, icon: 'Wind' },
+  { name: 'Robô de Cozinha', power: 1000, icon: 'Bot' },
+  { name: 'Box TV', power: 20, icon: 'Tv' },
   { name: 'Personalizado', power: 100, icon: 'Zap' },
 ];
 
@@ -36,6 +59,13 @@ const iconMap = {
   'Monitor': Monitor,
   'Lightbulb': Lightbulb,
   'Zap': Zap,
+  'Coffee': Coffee,
+  'Wind': Wind,
+  'Flame': Flame,
+  'Circle': Circle,
+  'Gamepad2': Gamepad2,
+  'Wifi': Wifi,
+  'Bot': Bot,
 };
 
 interface ApplianceSelectorProps {

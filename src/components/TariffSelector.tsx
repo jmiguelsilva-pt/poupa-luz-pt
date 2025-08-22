@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { Zap, Clock, Sun } from 'lucide-react';
 import { Tariff } from './EnergyCalculator';
 
@@ -37,6 +38,27 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
   selectedTariff, 
   onTariffChange 
 }) => {
+  const [customPrice, setCustomPrice] = useState(selectedTariff.pricePerKwh);
+  const [showCustomInput, setShowCustomInput] = useState(false);
+
+  const handleTariffSelect = (tariff: Tariff) => {
+    if (tariff.id === 'normal') {
+      setShowCustomInput(true);
+      setCustomPrice(tariff.pricePerKwh);
+    } else {
+      setShowCustomInput(false);
+    }
+    onTariffChange(tariff);
+  };
+
+  const handleCustomPriceChange = (price: number) => {
+    setCustomPrice(price);
+    onTariffChange({
+      ...selectedTariff,
+      pricePerKwh: price
+    });
+  };
+
   return (
     <Card className="brutal-border brutal-shadow p-6">
       <div className="space-y-4">
@@ -57,7 +79,7 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
             return (
               <button
                 key={tariff.id}
-                onClick={() => onTariffChange(tariff)}
+                onClick={() => handleTariffSelect(tariff)}
                 className={`p-4 rounded-lg border-2 transition-all text-left ${
                   isSelected 
                     ? 'gradient-energy brutal-shadow border-border' 
@@ -88,7 +110,7 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
                     <p className={`text-xl font-black ${
                       isSelected ? 'text-accent-foreground' : 'text-foreground'
                     }`}>
-                      €{tariff.pricePerKwh.toFixed(2)}
+                      €{(tariff.id === 'normal' && isSelected ? customPrice : tariff.pricePerKwh).toFixed(2)}
                     </p>
                     <p className={`text-sm ${
                       isSelected ? 'text-accent-foreground opacity-90' : 'text-muted-foreground'
@@ -101,6 +123,27 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
             );
           })}
         </div>
+
+        {/* Custom Price Input for Normal Tariff */}
+        {showCustomInput && selectedTariff.id === 'normal' && (
+          <div className="space-y-2">
+            <Label htmlFor="customPrice">Preço Personalizado (€/kWh)</Label>
+            <Input
+              id="customPrice"
+              type="number"
+              value={customPrice}
+              onChange={(e) => handleCustomPriceChange(Number(e.target.value))}
+              step="0.01"
+              min="0.01"
+              max="1.00"
+              className="brutal-border text-center text-lg font-semibold"
+              placeholder="0.22"
+            />
+            <p className="text-xs text-muted-foreground text-center">
+              Consulte o preço na sua fatura elétrica
+            </p>
+          </div>
+        )}
 
         <div className="text-center text-sm text-muted-foreground bg-muted p-3 rounded-lg">
           💡 Dica: Encontre o preço do kWh na sua fatura elétrica

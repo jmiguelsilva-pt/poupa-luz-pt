@@ -53,6 +53,24 @@ const EnergyCalculator = () => {
   };
 
   const shareResults = () => {
+    // Create report data
+    const reportData = {
+      appliances: appliances.map(app => ({
+        name: app.name,
+        power: app.power,
+        hoursPerDay: app.hoursPerDay,
+        icon: app.icon
+      })),
+      tariff: {
+        name: selectedTariff.name,
+        pricePerKwh: selectedTariff.pricePerKwh
+      }
+    };
+
+    // Encode data and create shareable link
+    const encodedData = btoa(JSON.stringify(reportData));
+    const reportUrl = `${window.location.origin}/report/${encodedData}`;
+    
     const totalDaily = appliances.reduce((acc, app) => {
       return acc + (app.power * app.hoursPerDay / 1000) * selectedTariff.pricePerKwh;
     }, 0);
@@ -62,18 +80,21 @@ const EnergyCalculator = () => {
 🏠 Total diário: €${totalDaily.toFixed(2)}
 💰 Total mensal: €${(totalDaily * 30).toFixed(2)}
 
-Descubra o seu consumo em: ${window.location.href}`;
+📊 Ver relatório completo: ${reportUrl}
+
+Descubra o seu consumo em: ${window.location.origin}`;
 
     if (navigator.share) {
       navigator.share({
         title: 'Calculadora de Consumo Elétrico',
-        text: message
+        text: message,
+        url: reportUrl
       });
     } else {
       navigator.clipboard.writeText(message);
       toast({
-        title: "Copiado!",
-        description: "Resultados copiados para a área de transferência.",
+        title: "Link copiado!",
+        description: "Link do relatório copiado para partilhar.",
       });
     }
   };
