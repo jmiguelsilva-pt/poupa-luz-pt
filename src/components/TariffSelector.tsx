@@ -38,21 +38,23 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
   selectedTariff, 
   onTariffChange 
 }) => {
-  const [customPrice, setCustomPrice] = useState(selectedTariff.pricePerKwh);
+  // Keep a per-tariff map of prices so all options are customizable
+  const [customPrices, setCustomPrices] = useState<Record<string, number>>(() =>
+    Object.fromEntries(tariffOptions.map(t => [t.id, t.pricePerKwh]))
+  );
   const [showCustomInput, setShowCustomInput] = useState(false);
 
   const handleTariffSelect = (tariff: Tariff) => {
-    if (tariff.id === 'normal') {
-      setShowCustomInput(true);
-      setCustomPrice(tariff.pricePerKwh);
-    } else {
-      setShowCustomInput(false);
-    }
-    onTariffChange(tariff);
+    setShowCustomInput(true);
+    const priceForTariff = customPrices[tariff.id] ?? tariff.pricePerKwh;
+    onTariffChange({ ...tariff, pricePerKwh: priceForTariff });
   };
 
   const handleCustomPriceChange = (price: number) => {
-    setCustomPrice(price);
+    setCustomPrices(prev => {
+      const next = { ...prev, [selectedTariff.id]: price };
+      return next;
+    });
     onTariffChange({
       ...selectedTariff,
       pricePerKwh: price
@@ -75,6 +77,7 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
           {tariffOptions.map((tariff) => {
             const Icon = tariffIcons[tariff.id as keyof typeof tariffIcons];
             const isSelected = selectedTariff.id === tariff.id;
+            const displayPrice = customPrices[tariff.id] ?? tariff.pricePerKwh;
             
             return (
               <button
@@ -110,7 +113,7 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
                     <p className={`text-xl font-black ${
                       isSelected ? 'text-accent-foreground' : 'text-foreground'
                     }`}>
-                      €{(tariff.id === 'normal' && isSelected ? customPrice : tariff.pricePerKwh).toFixed(2)}
+                      €{displayPrice.toFixed(2)}
                     </p>
                     <p className={`text-sm ${
                       isSelected ? 'text-accent-foreground opacity-90' : 'text-muted-foreground'
@@ -124,14 +127,14 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
           })}
         </div>
 
-        {/* Custom Price Input for Normal Tariff */}
-        {showCustomInput && selectedTariff.id === 'normal' && (
+        {/* Custom Price Input for Selected Tariff */}
+        {showCustomInput && (
           <div className="space-y-2">
             <Label htmlFor="customPrice">Preço Personalizado (€/kWh)</Label>
             <Input
               id="customPrice"
               type="number"
-              value={customPrice}
+              value={customPrices[selectedTariff.id] ?? selectedTariff.pricePerKwh}
               onChange={(e) => handleCustomPriceChange(Number(e.target.value))}
               step="0.01"
               min="0.01"

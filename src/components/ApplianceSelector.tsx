@@ -77,6 +77,7 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
   const [customName, setCustomName] = useState('');
   const [power, setPower] = useState(150);
   const [hoursPerDay, setHoursPerDay] = useState([8]);
+  const [showAll, setShowAll] = useState(false);
 
   const handlePresetSelect = (preset: typeof appliancePresets[0]) => {
     setSelectedPreset(preset);
@@ -105,6 +106,19 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
 
   const IconComponent = iconMap[selectedPreset.icon as keyof typeof iconMap];
 
+  // Compute visible presets ensuring 'Personalizado' is included in the first 12
+  const personalPreset = appliancePresets.find(p => p.name === 'Personalizado');
+  let visiblePresets = appliancePresets;
+  if (!showAll) {
+    const base = appliancePresets.slice(0, 12);
+    const hasPersonal = base.some(p => p.name === 'Personalizado');
+    if (hasPersonal || !personalPreset) {
+      visiblePresets = base;
+    } else {
+      visiblePresets = [...base.slice(0, 11), personalPreset];
+    }
+  }
+
   return (
     <Card className="brutal-border brutal-shadow p-6">
       <div className="space-y-6">
@@ -119,7 +133,7 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
 
         {/* Appliance Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {appliancePresets.map((preset) => {
+          {visiblePresets.map((preset) => {
             const Icon = iconMap[preset.icon as keyof typeof iconMap];
             const isSelected = selectedPreset.name === preset.name;
             
@@ -150,6 +164,15 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
             );
           })}
         </div>
+
+        {/* Ver mais / Ver menos */}
+        {appliancePresets.length > 12 && (
+          <div className="flex justify-center">
+            <Button variant="outline" onClick={() => setShowAll(!showAll)}>
+              {showAll ? 'Ver menos' : 'Ver mais'}
+            </Button>
+          </div>
+        )}
 
         {/* Custom Name Input */}
         {selectedPreset.name === 'Personalizado' && (

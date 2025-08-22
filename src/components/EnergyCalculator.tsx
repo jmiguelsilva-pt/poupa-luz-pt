@@ -107,10 +107,10 @@ Descubra o seu consumo em: ${window.location.origin}`;
           <div className="text-center text-primary-foreground">
             <Calculator className="w-12 h-12 mx-auto mb-4" />
             <h1 className="text-3xl font-black mb-2">
-              CALCULADORA ELÉTRICA
+              Calculadora Consumo Electricidade
             </h1>
             <p className="text-lg font-medium opacity-90">
-              Descubra quanto gastam os seus eletrodomésticos
+              Descubra quanto gastam os seus eletrodomésticos e como poupar na sua conta de eletricidade
             </p>
           </div>
         </Card>
