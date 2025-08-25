@@ -6,7 +6,6 @@ import { ApplianceSelector } from './ApplianceSelector';
 import { TariffSelector } from './TariffSelector';
 import { ResultsDisplay } from './ResultsDisplay';
 import { useToast } from '@/hooks/use-toast';
-
 export interface Appliance {
   id: string;
   name: string;
@@ -14,22 +13,21 @@ export interface Appliance {
   hoursPerDay: number;
   icon: string;
 }
-
 export interface Tariff {
   id: string;
   name: string;
   pricePerKwh: number;
 }
-
 const EnergyCalculator = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [appliances, setAppliances] = useState<Appliance[]>([]);
   const [selectedTariff, setSelectedTariff] = useState<Tariff>({
     id: 'normal',
     name: 'Tarifa Normal',
     pricePerKwh: 0.22
   });
-
   const addAppliance = (appliance: Omit<Appliance, 'id'>) => {
     const newAppliance = {
       ...appliance,
@@ -38,20 +36,18 @@ const EnergyCalculator = () => {
     setAppliances(prev => [...prev, newAppliance]);
     toast({
       title: "Aparelho adicionado!",
-      description: `${appliance.name} foi adicionado à sua calculadora.`,
+      description: `${appliance.name} foi adicionado à sua calculadora.`
     });
   };
-
   const removeAppliance = (id: string) => {
     setAppliances(prev => prev.filter(app => app.id !== id));
   };
-
   const updateAppliance = (id: string, updates: Partial<Appliance>) => {
-    setAppliances(prev => 
-      prev.map(app => app.id === id ? { ...app, ...updates } : app)
-    );
+    setAppliances(prev => prev.map(app => app.id === id ? {
+      ...app,
+      ...updates
+    } : app));
   };
-
   const shareResults = () => {
     // Create report data
     const reportData = {
@@ -70,11 +66,9 @@ const EnergyCalculator = () => {
     // Encode data and create shareable link
     const encodedData = btoa(JSON.stringify(reportData));
     const reportUrl = `${window.location.origin}/report/${encodedData}`;
-    
     const totalDaily = appliances.reduce((acc, app) => {
-      return acc + (app.power * app.hoursPerDay / 1000) * selectedTariff.pricePerKwh;
+      return acc + app.power * app.hoursPerDay / 1000 * selectedTariff.pricePerKwh;
     }, 0);
-    
     const message = `💡 Calculei o meu consumo elétrico:
     
 🏠 Total diário: €${totalDaily.toFixed(2)}
@@ -83,7 +77,6 @@ const EnergyCalculator = () => {
 📊 Ver relatório completo: ${reportUrl}
 
 Descubra o seu consumo em: ${window.location.origin}`;
-
     if (navigator.share) {
       navigator.share({
         title: 'Calculadora de Consumo Elétrico',
@@ -94,63 +87,41 @@ Descubra o seu consumo em: ${window.location.origin}`;
       navigator.clipboard.writeText(message);
       toast({
         title: "Link copiado!",
-        description: "Link do relatório copiado para partilhar.",
+        description: "Link do relatório copiado para partilhar."
       });
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background px-4 py-6">
+  return <div className="min-h-screen bg-background px-4 py-6">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <Card className="gradient-primary brutal-shadow-lg brutal-border p-6">
           <div className="text-center text-primary-foreground">
             <Calculator className="w-12 h-12 mx-auto mb-4" />
-            <h1 className="text-3xl font-black mb-2">
-              Calculadora Consumo Electricidade
-            </h1>
-            <p className="text-lg font-medium opacity-90">
-              Descubra quanto gastam os seus eletrodomésticos e como poupar na sua conta de eletricidade
-            </p>
+            <h1 className="font-black mb-2 text-2xl">Calculadora Consumo Electricidade 🇵🇹</h1>
+            <p className="opacity-90 font-medium text-base mx-0">Descubra quanto gastam os seus eletrodomésticos e como poupar na conta de eletricidade em Portugal.</p>
           </div>
         </Card>
 
         {/* Tariff Selection */}
-        <TariffSelector 
-          selectedTariff={selectedTariff}
-          onTariffChange={setSelectedTariff}
-        />
+        <TariffSelector selectedTariff={selectedTariff} onTariffChange={setSelectedTariff} />
 
         {/* Appliance Selection */}
         <ApplianceSelector onAddAppliance={addAppliance} />
 
         {/* Results */}
-        {appliances.length > 0 && (
-          <>
-            <ResultsDisplay 
-              appliances={appliances}
-              tariff={selectedTariff}
-              onUpdateAppliance={updateAppliance}
-              onRemoveAppliance={removeAppliance}
-            />
+        {appliances.length > 0 && <>
+            <ResultsDisplay appliances={appliances} tariff={selectedTariff} onUpdateAppliance={updateAppliance} onRemoveAppliance={removeAppliance} />
             
             {/* Share Button */}
             <div className="flex justify-center">
-              <Button 
-                variant="success" 
-                size="lg"
-                onClick={shareResults}
-                className="gap-2"
-              >
+              <Button variant="success" size="lg" onClick={shareResults} className="gap-2">
                 <Share2 className="w-5 h-5" />
                 Partilhar Resultados
               </Button>
             </div>
-          </>
-        )}
+          </>}
 
-        {appliances.length === 0 && (
-          <Card className="brutal-border brutal-shadow p-8 text-center">
+        {appliances.length === 0 && <Card className="brutal-border brutal-shadow p-8 text-center">
             <div className="text-muted-foreground">
               <Plus className="w-16 h-16 mx-auto mb-4 opacity-50" />
               <p className="text-xl font-semibold mb-2">
@@ -160,11 +131,8 @@ Descubra o seu consumo em: ${window.location.origin}`;
                 Selecione aparelhos acima para calcular o seu consumo elétrico
               </p>
             </div>
-          </Card>
-        )}
+          </Card>}
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default EnergyCalculator;
