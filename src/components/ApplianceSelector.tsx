@@ -141,21 +141,21 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
               <button
                 key={preset.name}
                 onClick={() => handlePresetSelect(preset)}
-                className={`p-4 rounded-lg border-2 transition-all ${
+                className={`p-3 rounded-lg border-2 transition-all h-[120px] flex flex-col justify-center ${
                   isSelected 
                     ? 'gradient-secondary brutal-shadow border-border' 
                     : 'bg-card border-muted hover:border-border'
                 }`}
               >
-                <Icon className={`w-8 h-8 mx-auto mb-2 ${
+                <Icon className={`w-6 h-6 mx-auto mb-2 flex-shrink-0 ${
                   isSelected ? 'text-secondary-foreground' : 'text-foreground'
                 }`} />
-                <p className={`text-sm font-semibold ${
+                <p className={`text-xs font-semibold leading-tight text-center break-words hyphens-auto ${
                   isSelected ? 'text-secondary-foreground' : 'text-foreground'
                 }`}>
                   {preset.name}
                 </p>
-                <p className={`text-xs ${
+                <p className={`text-xs mt-1 ${
                   isSelected ? 'text-secondary-foreground opacity-80' : 'text-muted-foreground'
                 }`}>
                   {preset.power}W
