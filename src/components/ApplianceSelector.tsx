@@ -132,7 +132,7 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
         </div>
 
         {/* Appliance Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
           {visiblePresets.map((preset) => {
             const Icon = iconMap[preset.icon as keyof typeof iconMap];
             const isSelected = selectedPreset.name === preset.name;

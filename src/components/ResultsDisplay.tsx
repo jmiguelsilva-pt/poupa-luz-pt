@@ -87,18 +87,30 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           <h2 className="text-2xl font-black mb-2">
             CONSUMO TOTAL
           </h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <p className="text-3xl font-black">
+              <p className="text-2xl font-black">
+                €{(totalMonthly / 30).toFixed(2)}
+              </p>
+              <p className="text-sm opacity-90">por dia</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black">
                 €{totalMonthly.toFixed(2)}
               </p>
               <p className="text-sm opacity-90">por mês</p>
             </div>
             <div>
-              <p className="text-3xl font-black">
+              <p className="text-2xl font-black">
                 {totalDailyKwh.toFixed(1)} kWh
               </p>
               <p className="text-sm opacity-90">por dia</p>
+            </div>
+            <div>
+              <p className="text-2xl font-black">
+                {(totalDailyKwh * 30).toFixed(0)} kWh
+              </p>
+              <p className="text-sm opacity-90">por mês</p>
             </div>
           </div>
         </div>
