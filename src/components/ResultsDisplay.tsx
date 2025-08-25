@@ -13,7 +13,14 @@ import {
   Microwave, 
   Monitor,
   Lightbulb,
-  Zap
+  Zap,
+  Coffee,
+  Wind,
+  Flame,
+  Circle,
+  Gamepad2,
+  Wifi,
+  Bot
 } from 'lucide-react';
 
 const iconMap = {
@@ -25,6 +32,13 @@ const iconMap = {
   'Monitor': Monitor,
   'Lightbulb': Lightbulb,
   'Zap': Zap,
+  'Coffee': Coffee,
+  'Wind': Wind,
+  'Flame': Flame,
+  'Circle': Circle,
+  'Gamepad2': Gamepad2,
+  'Wifi': Wifi,
+  'Bot': Bot,
 };
 
 interface ResultsDisplayProps {
