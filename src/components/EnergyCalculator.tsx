@@ -93,7 +93,7 @@ Descubra o seu consumo em: ${window.location.origin}`;
     }
   };
   return <div className="min-h-screen bg-background px-4 py-6">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <Card className="gradient-primary brutal-shadow-lg brutal-border p-6">
           <div className="text-center text-primary-foreground">
