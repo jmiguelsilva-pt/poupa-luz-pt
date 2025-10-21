@@ -45,7 +45,7 @@ export const AdBanner: React.FC<AdBannerProps> = ({
   };
 
   return (
-    <div className={`ad-banner flex justify-center ${className}`}>
+    <div className={`ad-banner flex justify-center my-4 ${className}`}>
       <ins
         className="adsbygoogle"
         style={getAdStyles()}
