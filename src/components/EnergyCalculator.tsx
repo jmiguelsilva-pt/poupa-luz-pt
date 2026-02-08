@@ -5,7 +5,6 @@ import { Card } from '@/components/ui/card';
 import { ApplianceSelector } from './ApplianceSelector';
 import { TariffSelector } from './TariffSelector';
 import { ResultsDisplay } from './ResultsDisplay';
-import { AdBanner } from './AdBanner';
 import { useToast } from '@/hooks/use-toast';
 export interface Appliance {
   id: string;
@@ -103,24 +102,15 @@ Descubra o seu consumo em: ${window.location.origin}`;
           </div>
         </Card>
 
-        {/* Top Banner */}
-        <AdBanner slot="1234567890" format="horizontal" />
-
         {/* Tariff Selection */}
         <TariffSelector selectedTariff={selectedTariff} onTariffChange={setSelectedTariff} />
 
         {/* Appliance Selection */}
         <ApplianceSelector onAddAppliance={addAppliance} />
 
-        {/* Middle Banner */}
-        <AdBanner slot="0987654321" format="auto" />
-
         {/* Results */}
         {appliances.length > 0 && <>
             <ResultsDisplay appliances={appliances} tariff={selectedTariff} onUpdateAppliance={updateAppliance} onRemoveAppliance={removeAppliance} />
-            
-            {/* Results Banner */}
-            <AdBanner slot="1122334455" format="square" className="lg:float-right lg:ml-4 lg:mb-4" />
             
             {/* Share Button */}
             <div className="flex justify-center">
