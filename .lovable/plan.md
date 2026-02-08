@@ -1,94 +1,54 @@
 
-# SEO Improvement Plan for contadaluz.pt
 
-## Overview
-This plan will significantly improve your website's search engine visibility, especially for Portuguese users searching for electricity consumption calculators.
+# Plano: Adicionar Logo nos Dados Estruturados
+
+## Objetivo
+Fazer com que o emoji 💡 apareça como logo nos resultados de pesquisa do Google, igual ao favicon.
 
 ---
 
-## Changes to Implement
+## Mudanças a Implementar
 
-### 1. Fix index.html Meta Tags
+### Ficheiro: `index.html`
 
-**File: `index.html`**
+Atualizar o JSON-LD (dados estruturados) para incluir a propriedade `logo` na organização autora:
 
-- Change `lang="en"` to `lang="pt-PT"` for proper Portuguese localization
-- Fix Open Graph tags with real content:
-  - `og:title`: "Calculadora Consumo Electricidade - Quanto Gasta em Luz | Portugal"
-  - `og:description`: "Calcule o consumo eletrico dos seus eletrodomesticos em Portugal..."
-  - `og:url`: "https://contadaluz.pt"
-  - `og:locale`: "pt_PT"
-- Fix Twitter Card tags with proper Portuguese content
-- Add canonical URL: `<link rel="canonical" href="https://contadaluz.pt/">`
-- Add keywords meta tag with Portuguese terms: "calculadora consumo eletrico, conta luz portugal, kWh, eletrodomesticos, poupanca energia"
-- Add theme-color meta tag for mobile browsers
-
-### 2. Create sitemap.xml
-
-**File: `public/sitemap.xml`**
-
-Create a sitemap with:
-- Homepage: https://contadaluz.pt/ (priority 1.0, daily updates)
-- Report page template noted for dynamic generation
-
-### 3. Update robots.txt
-
-**File: `public/robots.txt`**
-
-Add sitemap reference:
-```
-Sitemap: https://contadaluz.pt/sitemap.xml
+**Antes:**
+```json
+"author": {
+  "@type": "Organization",
+  "name": "ContaDaLuz.pt",
+  "url": "https://contadaluz.pt"
+}
 ```
 
-### 4. Add Structured Data (JSON-LD)
-
-**File: `index.html`**
-
-Add WebApplication schema for rich search results:
-- Type: WebApplication
-- Name: Calculadora de Consumo Eletrico
-- Description in Portuguese
-- Application category: UtilitiesApplication
-- Operating system: Web
-- Offers: Free
-- Country of origin: Portugal
-
-### 5. Create SEO Helper Component (Optional Enhancement)
-
-**File: `src/components/SEOHead.tsx`**
-
-Create a reusable component using react-helmet-async for:
-- Dynamic page titles
-- Dynamic meta descriptions
-- Open Graph tags per page
-- JSON-LD structured data
-
-This would allow the Report page to have custom SEO tags based on the report content.
+**Depois:**
+```json
+"author": {
+  "@type": "Organization",
+  "name": "ContaDaLuz.pt",
+  "url": "https://contadaluz.pt",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>"
+  }
+}
+```
 
 ---
 
-## Summary of Files to Modify/Create
+## Detalhes Técnicos
 
-| File | Action | Purpose |
-|------|--------|---------|
-| `index.html` | Modify | Fix all meta tags, add structured data |
-| `public/sitemap.xml` | Create | Help Google discover pages |
-| `public/robots.txt` | Modify | Add sitemap reference |
-
----
-
-## Expected SEO Impact
-
-- Better ranking for Portuguese electricity-related searches
-- Rich snippets in Google search results
-- Proper social media previews when shared
-- Faster Google indexing via sitemap
-- Regional targeting for Portugal (pt-PT)
+- A propriedade `logo` no Schema.org permite definir a imagem que aparece associada à organização nos resultados de pesquisa
+- Usamos o mesmo SVG inline com o emoji 💡 que já está no favicon
+- O Google pode demorar algumas semanas a processar e mostrar o novo logo nos resultados
+- O favicon já está correto, por isso os browsers já mostram o emoji 💡
 
 ---
 
-## Technical Notes
+## Resultado Esperado
 
-- No new dependencies required for basic improvements
-- For dynamic SEO on the Report page, we could add `react-helmet-async` package
-- All changes are frontend-only and deploy immediately
+Quando o Google re-indexar o site:
+- O emoji 💡 aparecerá como logo nos resultados de pesquisa
+- Consistência visual entre o favicon e a identidade nos motores de busca
+
