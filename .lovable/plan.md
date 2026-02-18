@@ -1,54 +1,23 @@
 
+# Fix: Show "Preço Personalizado" Immediately
 
-# Plano: Adicionar Logo nos Dados Estruturados
+## Problem
+In `src/components/TariffSelector.tsx`, line 45:
+```ts
+const [showCustomInput, setShowCustomInput] = useState(false);
+```
+The custom price input is hidden by default and only revealed after the user clicks a tariff option for the first time.
 
-## Objetivo
-Fazer com que o emoji 💡 apareça como logo nos resultados de pesquisa do Google, igual ao favicon.
+## Fix
+Change the initial value of `showCustomInput` from `false` to `true`:
 
----
-
-## Mudanças a Implementar
-
-### Ficheiro: `index.html`
-
-Atualizar o JSON-LD (dados estruturados) para incluir a propriedade `logo` na organização autora:
-
-**Antes:**
-```json
-"author": {
-  "@type": "Organization",
-  "name": "ContaDaLuz.pt",
-  "url": "https://contadaluz.pt"
-}
+```ts
+const [showCustomInput, setShowCustomInput] = useState(true);
 ```
 
-**Depois:**
-```json
-"author": {
-  "@type": "Organization",
-  "name": "ContaDaLuz.pt",
-  "url": "https://contadaluz.pt",
-  "logo": {
-    "@type": "ImageObject",
-    "url": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>"
-  }
-}
-```
+This single-line change makes the "Preço Personalizado" input visible immediately when the page loads, showing the default price for "Tarifa Normal" (€0.22/kWh) right away — no click required.
 
----
-
-## Detalhes Técnicos
-
-- A propriedade `logo` no Schema.org permite definir a imagem que aparece associada à organização nos resultados de pesquisa
-- Usamos o mesmo SVG inline com o emoji 💡 que já está no favicon
-- O Google pode demorar algumas semanas a processar e mostrar o novo logo nos resultados
-- O favicon já está correto, por isso os browsers já mostram o emoji 💡
-
----
-
-## Resultado Esperado
-
-Quando o Google re-indexar o site:
-- O emoji 💡 aparecerá como logo nos resultados de pesquisa
-- Consistência visual entre o favicon e a identidade nos motores de busca
-
+## Files to Change
+| File | Change |
+|------|--------|
+| `src/components/TariffSelector.tsx` | Line 45: `useState(false)` → `useState(true)` |
