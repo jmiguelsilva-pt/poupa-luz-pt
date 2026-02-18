@@ -1,9 +1,12 @@
-// Update this page (the content is just a fallback if you fail to update the page)
-
 import EnergyCalculator from '../components/EnergyCalculator';
+import Layout from '../components/Layout';
 
 const Index = () => {
-  return <EnergyCalculator />;
+  return (
+    <Layout>
+      <EnergyCalculator />
+    </Layout>
+  );
 };
 
 export default Index;
