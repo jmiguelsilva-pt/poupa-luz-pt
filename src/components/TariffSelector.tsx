@@ -42,7 +42,7 @@ const TariffSelector: React.FC<TariffSelectorProps> = ({
   const [customPrices, setCustomPrices] = useState<Record<string, number>>(() =>
     Object.fromEntries(tariffOptions.map(t => [t.id, t.pricePerKwh]))
   );
-  const [showCustomInput, setShowCustomInput] = useState(false);
+  const [showCustomInput, setShowCustomInput] = useState(true);
 
   const handleTariffSelect = (tariff: Tariff) => {
     setShowCustomInput(true);
