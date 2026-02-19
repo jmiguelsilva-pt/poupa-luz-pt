@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calculator, Leaf, Lightbulb, Home, Thermometer, Droplets } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
 
 const appliances = [
   { name: 'Frigorífico antigo (A)', kwh: 500, kwh_new: 130, savings: 370 },
@@ -65,6 +66,19 @@ const PouparEnergia = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Como Poupar Energia em Casa - Dicas Práticas | ContaDaLuz.pt"
+        description="Guia prático para poupar energia e reduzir a conta da luz em Portugal. Dicas por divisão da casa, comparação de aparelhos eficientes e retorno do investimento em LED."
+        canonical="https://contadaluz.pt/poupar-energia"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://contadaluz.pt/" },
+            { "@type": "ListItem", "position": 2, "name": "Poupar Energia", "item": "https://contadaluz.pt/poupar-energia" }
+          ]
+        }}
+      />
       <div className="px-4 py-8">
         <div className="max-w-3xl mx-auto space-y-6">
           {/* Hero */}
@@ -159,6 +173,22 @@ const PouparEnergia = () => {
                 <p className="text-xl font-black text-accent">3 meses</p>
                 <p className="text-xs text-muted-foreground">Retorno do investimento</p>
               </div>
+            </div>
+          </Card>
+
+          {/* Links internos */}
+          <Card className="brutal-border brutal-shadow p-5">
+            <h2 className="text-lg font-black mb-3">📖 Artigos Relacionados</h2>
+            <div className="space-y-2">
+              <Link to="/tarifas" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Comparar Tarifas de Eletricidade em Portugal
+              </Link>
+              <Link to="/analisar-fatura" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Como Ler a Fatura da Eletricidade
+              </Link>
+              <Link to="/perguntas-frequentes" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Perguntas Frequentes sobre Eletricidade
+              </Link>
             </div>
           </Card>
 

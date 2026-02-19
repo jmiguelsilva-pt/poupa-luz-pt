@@ -4,10 +4,26 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calculator, FileText, AlertCircle } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
 
 const AnalisarFatura = () => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://contadaluz.pt/" },
+      { "@type": "ListItem", "position": 2, "name": "Analisar Fatura", "item": "https://contadaluz.pt/analisar-fatura" }
+    ]
+  };
+
   return (
     <Layout>
+      <SEOHead
+        title="Como Ler a Fatura da Eletricidade - Guia Completo | ContaDaLuz.pt"
+        description="Aprenda a ler a sua fatura de eletricidade em Portugal. Guia completo sobre kWh, potência contratada, custos fixos vs variáveis e como identificar a sua tarifa."
+        canonical="https://contadaluz.pt/analisar-fatura"
+        structuredData={breadcrumbSchema}
+      />
       <div className="px-4 py-8">
         <div className="max-w-3xl mx-auto space-y-6">
           {/* Hero */}
@@ -134,6 +150,22 @@ const AnalisarFatura = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </Card>
+
+          {/* Links internos */}
+          <Card className="brutal-border brutal-shadow p-5">
+            <h2 className="text-lg font-black mb-3">📖 Artigos Relacionados</h2>
+            <div className="space-y-2">
+              <Link to="/tarifas" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Comparar Tarifas de Eletricidade em Portugal
+              </Link>
+              <Link to="/perguntas-frequentes" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Perguntas Frequentes sobre Eletricidade
+              </Link>
+              <Link to="/poupar-energia" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Como Poupar Energia em Casa
+              </Link>
             </div>
           </Card>
 

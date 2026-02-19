@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Calculator } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
 
 const faqs = [
   {
@@ -70,8 +71,27 @@ const faqs = [
 ];
 
 const PerguntasFrequentes = () => {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
+
   return (
     <Layout>
+      <SEOHead
+        title="Perguntas Frequentes sobre Eletricidade Portugal | ContaDaLuz.pt"
+        description="Respostas às perguntas mais frequentes sobre eletricidade em Portugal: preço do kWh, tarifas bi-horárias, consumo de eletrodomésticos e como poupar na conta da luz."
+        canonical="https://contadaluz.pt/perguntas-frequentes"
+        structuredData={faqSchema}
+      />
       <div className="px-4 py-8">
         <div className="max-w-3xl mx-auto space-y-6">
           {/* Hero */}
@@ -103,6 +123,22 @@ const PerguntasFrequentes = () => {
                 </AccordionItem>
               ))}
             </Accordion>
+          </Card>
+
+          {/* Links internos */}
+          <Card className="brutal-border brutal-shadow p-5">
+            <h2 className="text-lg font-black mb-3">📖 Artigos Relacionados</h2>
+            <div className="space-y-2">
+              <Link to="/tarifas" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Comparar Tarifas de Eletricidade em Portugal
+              </Link>
+              <Link to="/poupar-energia" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Como Poupar Energia em Casa
+              </Link>
+              <Link to="/analisar-fatura" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Como Ler a Fatura da Eletricidade
+              </Link>
+            </div>
           </Card>
 
           {/* CTA */}
