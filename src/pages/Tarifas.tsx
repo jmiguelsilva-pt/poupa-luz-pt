@@ -139,7 +139,7 @@ const Tarifas = () => {
               'Contacte o seu comercializador por telefone, app ou área de cliente online.',
               'Peça a alteração do ciclo tarifário — é gratuita e sem custos de rescisão.',
               'A mudança é processada no próximo ciclo de leitura (geralmente 20 dias úteis).',
-              'Compare ofertas no simulador oficial da ERSE em erse.pt antes de decidir.'].
+              'Compare ofertas antes de decidir.'].
               map((step, i) =>
               <li key={i} className="flex gap-3 items-start">
                   <span className="w-7 h-7 rounded-full gradient-primary text-primary-foreground text-sm flex items-center justify-center font-black flex-shrink-0">{i + 1}</span>
