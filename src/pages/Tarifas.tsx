@@ -4,10 +4,26 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calculator, Clock, ArrowRight } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
 
 const Tarifas = () => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://contadaluz.pt/" },
+      { "@type": "ListItem", "position": 2, "name": "Tarifas", "item": "https://contadaluz.pt/tarifas" }
+    ]
+  };
+
   return (
     <Layout>
+      <SEOHead
+        title="Comparar Tarifas Eletricidade Portugal - Simples vs Bi-horária | ContaDaLuz.pt"
+        description="Compare tarifas de eletricidade em Portugal: simples, bi-horária e tri-horária. Horários de vazio e ponta, preços por kWh e quando compensa cada opção."
+        canonical="https://contadaluz.pt/tarifas"
+        structuredData={breadcrumbSchema}
+      />
       <div className="px-4 py-8">
         <div className="max-w-3xl mx-auto space-y-6">
           {/* Hero */}
@@ -157,6 +173,22 @@ const Tarifas = () => {
 
 
 
+          </Card>
+
+          {/* Links internos */}
+          <Card className="brutal-border brutal-shadow p-5">
+            <h2 className="text-lg font-black mb-3">📖 Artigos Relacionados</h2>
+            <div className="space-y-2">
+              <Link to="/poupar-energia" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Como Poupar Energia em Casa
+              </Link>
+              <Link to="/analisar-fatura" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Como Ler a Fatura da Eletricidade
+              </Link>
+              <Link to="/perguntas-frequentes" className="flex items-center gap-2 text-sm text-primary font-bold hover:underline">
+                → Perguntas Frequentes sobre Eletricidade
+              </Link>
+            </div>
           </Card>
 
           {/* CTA */}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calculator, Share2, ArrowLeft } from 'lucide-react';
@@ -155,6 +156,12 @@ Calcule o seu consumo: ${window.location.origin}`;
 
   return (
     <Layout>
+      <SEOHead
+        title="Relatório de Consumo Elétrico | ContaDaLuz.pt"
+        description="Relatório personalizado de consumo elétrico dos seus eletrodomésticos."
+        canonical="https://contadaluz.pt/"
+        noindex
+      />
       <div className="px-4 py-6">
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Header */}
