@@ -76,6 +76,7 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
   const [selectedPreset, setSelectedPreset] = useState(appliancePresets[0]);
   const [customName, setCustomName] = useState('');
   const [power, setPower] = useState(150);
+  const [daysPerWeek, setDaysPerWeek] = useState([7]);
   const [hoursPerDay, setHoursPerDay] = useState([8]);
   const [showAll, setShowAll] = useState(false);
 
@@ -96,12 +97,14 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
       name,
       power,
       hoursPerDay: hoursPerDay[0],
+      daysPerWeek: daysPerWeek[0],
       icon: selectedPreset.icon
     });
 
     // Reset form
     setCustomName('');
     setHoursPerDay([8]);
+    setDaysPerWeek([7]);
   };
 
   const IconComponent = iconMap[selectedPreset.icon as keyof typeof iconMap];
@@ -243,6 +246,24 @@ const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({ onAddAppliance })
             max={24}
             min={0.5}
             step={0.5}
+            className="w-full"
+          />
+        </div>
+
+        {/* Days per Week Slider */}
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <Label>Dias de uso por semana</Label>
+            <span className="text-lg font-bold gradient-energy bg-clip-text text-transparent">
+              {daysPerWeek[0]} {daysPerWeek[0] === 1 ? 'dia' : 'dias'}
+            </span>
+          </div>
+          <Slider
+            value={daysPerWeek}
+            onValueChange={setDaysPerWeek}
+            max={7}
+            min={1}
+            step={1}
             className="w-full"
           />
         </div>

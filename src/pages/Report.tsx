@@ -46,6 +46,7 @@ interface ReportData {
     name: string;
     power: number;
     hoursPerDay: number;
+    daysPerWeek?: number;
     icon: string;
   }>;
   tariff: {
@@ -105,13 +106,15 @@ const Report = () => {
   }
 
   const calculations = reportData.appliances.map(appliance => {
-    const dailyKwh = (appliance.power * appliance.hoursPerDay) / 1000;
+    const daysPerWeek = appliance.daysPerWeek ?? 7;
+    const dailyKwh = (appliance.power * appliance.hoursPerDay) / 1000 * (daysPerWeek / 7);
     const monthlyKwh = dailyKwh * 30;
     const dailyCost = dailyKwh * reportData.tariff.pricePerKwh;
     const monthlyCost = monthlyKwh * reportData.tariff.pricePerKwh;
 
     return {
       ...appliance,
+      daysPerWeek,
       dailyKwh,
       monthlyKwh,
       dailyCost,
@@ -218,7 +221,7 @@ Calcule o seu consumo: ${window.location.origin}`;
                       <div>
                         <p className="font-semibold">{calc.name}</p>
                         <p className="text-sm text-muted-foreground">
-                          {calc.power}W • {calc.hoursPerDay}h/dia
+                          {calc.power}W • {calc.hoursPerDay}h/dia • {calc.daysPerWeek}x/sem
                         </p>
                       </div>
                     </div>
