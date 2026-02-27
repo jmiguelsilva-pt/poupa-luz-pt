@@ -55,7 +55,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
   onRemoveAppliance
 }) => {
   const calculateConsumption = (appliance: Appliance) => {
-    const dailyKwh = (appliance.power * appliance.hoursPerDay) / 1000;
+    const dailyKwh = (appliance.power * appliance.hoursPerDay) / 1000 * (appliance.daysPerWeek / 7);
     const monthlyKwh = dailyKwh * 30;
     const dailyCost = dailyKwh * tariff.pricePerKwh;
     const monthlyCost = monthlyKwh * tariff.pricePerKwh;
@@ -137,7 +137,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                     <div>
                       <h4 className="font-bold text-lg">{appliance.name}</h4>
                       <p className="text-sm text-muted-foreground">
-                        {appliance.power}W • {appliance.hoursPerDay}h/dia
+                        {appliance.power}W • {appliance.hoursPerDay}h/dia • {appliance.daysPerWeek}x/sem
                       </p>
                     </div>
                   </div>
@@ -180,6 +180,24 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                       className="w-full"
                     />
                   </div>
+                </div>
+
+                {/* Days per week control */}
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <label className="text-sm font-semibold">Dias/semana</label>
+                    <span className="text-sm font-bold">{appliance.daysPerWeek}x</span>
+                  </div>
+                  <Slider
+                    value={[appliance.daysPerWeek]}
+                    onValueChange={([value]) => onUpdateAppliance(appliance.id, { 
+                      daysPerWeek: value 
+                    })}
+                    max={7}
+                    min={1}
+                    step={1}
+                    className="w-full"
+                  />
                 </div>
 
                 {/* Results */}

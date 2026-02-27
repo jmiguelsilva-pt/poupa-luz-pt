@@ -11,6 +11,7 @@ export interface Appliance {
   name: string;
   power: number; // watts
   hoursPerDay: number;
+  daysPerWeek: number;
   icon: string;
 }
 export interface Tariff {
@@ -55,6 +56,7 @@ const EnergyCalculator = () => {
         name: app.name,
         power: app.power,
         hoursPerDay: app.hoursPerDay,
+        daysPerWeek: app.daysPerWeek,
         icon: app.icon
       })),
       tariff: {
@@ -67,7 +69,7 @@ const EnergyCalculator = () => {
     const encodedData = btoa(JSON.stringify(reportData));
     const reportUrl = `${window.location.origin}/report/${encodedData}`;
     const totalDaily = appliances.reduce((acc, app) => {
-      return acc + app.power * app.hoursPerDay / 1000 * selectedTariff.pricePerKwh;
+      return acc + app.power * app.hoursPerDay / 1000 * selectedTariff.pricePerKwh * (app.daysPerWeek / 7);
     }, 0);
     const message = `💡 Calculei o meu consumo elétrico:
     
